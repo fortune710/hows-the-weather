@@ -1,0 +1,78 @@
+<div class="main" id="loading-screen" *ngIf="awaitingWeather==true">
+  <mat-progress-spinner mode="indeterminate" style="margin-bottom: 15px"></mat-progress-spinner>
+  <mat-label>Loading weather data...</mat-label>
+</div>
+
+<div class="main" *ngIf="awaitingWeather==false">
+  
+  <div class="no-search" *ngIf="searchingCity==false">
+    <img src="../assets/icons/location.svg" class="icons" width="35px" height="35px">
+    <p>{{name}}, {{country}}     {{time}} </p>
+
+    <img src="../assets/icons/search.svg" width="30px" height="30px" 
+    *ngIf="searchingCity==false" (click)="searchActive()" style="margin-left: auto;">
+  </div>
+  
+  <div>
+    
+    
+    <div class="search" *ngIf="searchingCity==true">
+      <mat-form-field style="font-family: 'Nunito';">
+        <mat-label>Search By City</mat-label>
+        <input matInput type="text" placeholder="Enter a city" [(ngModel)]="city">
+      </mat-form-field>
+      <div class="btn-search" (click)="fetchWeatherByCity()">Search</div>
+    </div>
+  </div>
+
+  <div class="no-weather" *ngIf="onStart==true">
+    <h2 style="font-size: 50px;">Search for a city to get started</h2>
+
+    <h3 style="font-size: 30px; transform: translateY(200px);">How's the weather?<br> By Fortune Alebiosu.</h3>
+  </div>
+  <div class="weather-details">
+    <div class="weather-card" *ngIf="onStart==false">
+      
+
+      <div class="weather-img">
+        <img [src]="icon" width="200px" height="180px">
+      </div>
+
+      <div class="weather" style="height: 120px;">
+        <h2>{{weather}}</h2>
+        <h1> {{temperature}}</h1> 
+
+        <h3>{{description}}</h3>
+      </div>
+
+      <div class="extras">
+        <div class="contain">
+
+          <img src="../assets/icons/humidity.svg" alt="" width="20px" height="20px" class="icons">
+          <div class="humidity">
+            {{humidity}}
+          </div>
+          Humidity
+        </div>
+
+        <div class="contain">
+          
+          <img src="../assets/icons/wind-speed.svg" alt="" width="20px" height="20px" class="icons">
+          <div class="wind-speed">
+            {{windSpeed}}
+          </div>
+          Wind Speed
+        </div>
+      </div>
+
+      
+    </div>
+    <div class="message">
+      <h2 style="text-align: justify;">{{message}}</h2>
+    </div>
+
+  </div>
+  
+  
+
+</div>
